@@ -1,3 +1,4 @@
+
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -74,6 +75,9 @@ local.properties
 ### Eclipse Patch ###
 # Eclipse Core
 .project
+
+### Intellij IDEA ###
+.idea/*
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath

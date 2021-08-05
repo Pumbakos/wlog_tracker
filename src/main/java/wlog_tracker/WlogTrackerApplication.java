@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class WlogTrackerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(WlogTrackerApplication.class, args);
 	}
-
 }
