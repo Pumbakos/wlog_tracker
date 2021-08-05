@@ -163,3 +163,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# IML files
+*.iml
