@@ -7,11 +7,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
-@AllArgsConstructor // do zmiany na jakiś TaskGenerator.java
+@AllArgsConstructor
 @Getter@Setter
 @Entity
 public class Task {
@@ -32,17 +31,17 @@ public class Task {
 
     @NotNull
     @Column(nullable = false)
-    private LocalDate dueDate;
+    private Date dueDate;
 
     @NotNull
     @Column(nullable = false)
-    private LocalDate startDate;
+    private Date startDate;
 
     @NotNull
     @Column(nullable = false)
-    private LocalDate endDate;
+    private Date endDate;
 
     @NotNull
-    private LocalDate trackedTime;
+    private Date trackedTime;
     }
 
