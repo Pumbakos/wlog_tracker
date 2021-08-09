@@ -1,70 +1,41 @@
 package wlog_tracker.usermodule;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@NoArgsConstructor
+@Getter@Setter
+@ToString(exclude = {"id"})
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Imię jest wymagane")
     @Column(nullable = false)
-    public String name;
+    private String name;
 
-    @NotBlank
+    @NotBlank(message = "Nazwisko jest wymagane")
     @Column(nullable = false)
     private String surname;
 
     @Basic
     private String imageUrl;
 
-    @NotNull
+    @Size(min = 11, max = 11)
+    @NotNull(message = "PESEL jest wymagany")
     @Column(nullable = false)
-    private Long pesel;
+    private String pesel;
 
-    @NotBlank
+    @NotNull(message = "Tytuł jest wymagany")
     @Column(nullable = false)
-    private String title;
-
-    public User() {
-    }
-
-    public boolean copyProperties(User user) {
-        boolean allowUpdate = false;
-
-        if (user.getName() != null && !user.getName().isBlank()) {
-            name = user.getName();
-            allowUpdate = true;
-        }
-
-        if (user.getSurname() != null && !user.getSurname().isBlank()) {
-            surname = user.getSurname();
-            allowUpdate = true;
-        }
-
-        if (user.getPesel() != null) {
-            pesel = user.getPesel();
-            allowUpdate = true;
-        }
-
-        if (user.getTitle() != null && !user.getTitle().isBlank()) {
-            title = user.getTitle();
-            allowUpdate = true;
-        }
-
-        if (user.getImageUrl() != null && !user.getImageUrl().isBlank()) {
-            imageUrl = user.getImageUrl();
-            allowUpdate = true;
-        }
-
-        return allowUpdate;
-    }
+    private Title title;
 }

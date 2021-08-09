@@ -1,12 +1,12 @@
 package wlog_tracker.usermodule;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @RestController
 @RequestMapping("/user")
@@ -19,37 +19,47 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public List<User> getUsers() {
+    public List<User> getAll() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUser(@PathVariable(name = "id") Long id) {
-        return repository.findById(id);
+    public User get(@PathVariable(name = "id") Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @PostMapping
-    public HttpStatus addUser(@Valid @RequestBody User user) {
-        repository.save(user);
-        return HttpStatus.OK;
+    public User save(@Valid @RequestBody User user) {
+        return repository.save(user);
     }
 
     @PutMapping("/{id}")
-    public HttpStatus updateUser(@RequestBody User user, @PathVariable(name = "id") Long id) {
+    public User update(@RequestBody User user, @PathVariable(name = "id") Long id) {
         Optional<User> userToGet = repository.findById(id);
         if (userToGet.isPresent()) {
             User userToUpdate = userToGet.get();
 
-            if (!userToUpdate.copyProperties(user))
-                return HttpStatus.BAD_REQUEST;
+            userToUpdate.setName(user.getName());
+            userToUpdate.setSurname(user.getSurname());
+            userToUpdate.setPesel(user.getPesel());
+            userToUpdate.setImageUrl(user.getImageUrl());
+            userToUpdate.setTitle(user.getTitle());
 
-            repository.save(userToUpdate);
-
-            return HttpStatus.OK;
+            return repository.save(userToUpdate);
         }
 
-        repository.save(user);
+        return null;
+    }
 
-        return HttpStatus.NOT_ACCEPTABLE;
+    @DeleteMapping("/{id}")
+    public User delete(@PathVariable(name = "id") Long id){
+        Optional<User> user = repository.findById(id);
+        if (user.isPresent()){
+            User ret = user.get();
+            repository.delete(ret);
+            return ret;
+        }
+
+        return null;
     }
 }
