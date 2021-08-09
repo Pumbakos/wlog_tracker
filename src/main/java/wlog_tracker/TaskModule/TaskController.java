@@ -18,7 +18,7 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public List<Task> getTask(){
+    public List<Task> getTasks(){
         return repository.findAll();
     }
 

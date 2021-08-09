@@ -1,14 +1,18 @@
 package wlog_tracker.TaskModule;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor // do zmiany na jakiś TaskGenerator.java
+@Getter@Setter
 @Entity
 public class Task {
     @Id
@@ -28,16 +32,17 @@ public class Task {
 
     @NotNull
     @Column(nullable = false)
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @NotNull
     @Column(nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull
     @Column(nullable = false)
-    private Date endDate;
+    private LocalDate endDate;
 
-    private Date trackedTime;
+    @NotNull
+    private LocalDate trackedTime;
+    }
 
-}
