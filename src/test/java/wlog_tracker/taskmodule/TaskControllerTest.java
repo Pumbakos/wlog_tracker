@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 
 @WebMvcTest(controllers = {TaskController.class})
-public abstract class TaskControllerTest {
+public class TaskControllerTest {
     private GsonJsonProvider gsonJsonProvider = new GsonJsonProvider(new Gson());
     private ObjectMapper mapper = new ObjectMapper();
 
