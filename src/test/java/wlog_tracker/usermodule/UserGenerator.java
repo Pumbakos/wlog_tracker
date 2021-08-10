@@ -39,7 +39,7 @@ class UserGenerator {
         user.setName("Denis");
         user.setSurname("Smith");
         user.setTitle(Title.TESTER);
-        user.setPesel("849134829891");
+        user.setPesel("49134829891");
         user.setImageUrl("pl.pumbakos");
 
         return user;
@@ -50,7 +50,7 @@ class UserGenerator {
         user.setName("Denis");
         user.setSurname("Smith");
         user.setTitle(Title.TESTER);
-        user.setPesel("849134829891");
+        user.setPesel("49134829891");
 
         return user;
     }
