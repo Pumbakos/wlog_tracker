@@ -12,24 +12,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import wlog_tracker.TaskModule.Priority;
-import wlog_tracker.TaskModule.Task;
-import wlog_tracker.TaskModule.TaskController;
 
-import java.time.Instant;
-import java.util.Date;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(controllers = {TaskController.class})
 public class TaskControllerTest {
     private GsonJsonProvider gsonJsonProvider = new GsonJsonProvider();
     private ObjectMapper mapper = new ObjectMapper();
-
-    private Task task = new TaskGenerator().createCompleteTaskHigh();
-    private String taskJson = gsonJsonProvider.toJson(task);
 
     @MockBean
     private TaskController taskController;
@@ -39,51 +30,107 @@ public class TaskControllerTest {
 
     @SneakyThrows
     @Test
-    public void getTask() {
-        Mockito.when(taskController.getTask(Mockito.anyLong())).thenReturn(task);
+    public void getExistingTask() {
+        Task completeTaskHigh = new TaskGenerator().createCompleteTaskHigh();
 
-        String resultActions = mockMvc.perform(get("/task/all")).
-                andReturn().getResponse().getContentAsString();
+        Mockito.when(taskController.get(Mockito.anyLong())).thenReturn(completeTaskHigh);
 
-        Task taskRes = mapper.readValue(resultActions, Task.class);
-
-        Assert.assertEquals(task.getName(), taskRes.getName());
-        Assert.assertEquals(task.getDescription(), taskRes.getDescription());
-
-    }
-
-    @Test
-    @SneakyThrows
-    public void saveTask() {
-        Mockito.when(taskController.addTask(Mockito.any(Task.class))).thenReturn(task);
-
-        String resultActions = mockMvc.perform(post("/task/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(taskJson))
-                .andExpect((ResultMatcher) content().json(taskJson))
+        String content = mockMvc.perform(get("/task/1"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
-        Task result = mapper.readValue(resultActions, Task.class);
+        Task taskRes = mapper.readValue(content, Task.class);
 
-        Assert.assertEquals(task.getName(), result.getName());
+        Assert.assertEquals(completeTaskHigh.getName(), taskRes.getName());
+        Assert.assertEquals(completeTaskHigh.getDescription(), taskRes.getDescription());
     }
 
     @Test
     @SneakyThrows
-    public void verificationLowTask(){
-        Task verification = new TaskGenerator().createTask("Zakupy", Priority.LOW,
-                "Odnow subskrypcje", Date.from(Instant.parse("2021-08-09T12:00:00.00Z")),
-                Date.from(Instant.parse("2021-08-12T12:00:00.00Z")),
-                Date.from(Instant.parse("2021-08-11T12:00:00.00Z")));
-        String json =  gsonJsonProvider.toJson(verification);
-        Mockito.when(taskController.addTask(Mockito.any(Task.class))).thenReturn(task);
-        MockHttpServletResponse responseAction = mockMvc.perform(get(("/task"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json))
-                .andReturn().getResponse();
-        Assert.assertEquals(responseAction.getContentLength(), 0);
+    public void saveCompleteTask() {
+        Task completeTaskHigh = new TaskGenerator().createCompleteTaskHigh();
+        String taskJson = gsonJsonProvider.toJson(completeTaskHigh);
 
+        Mockito.when(taskController.save(Mockito.any(Task.class))).thenReturn(completeTaskHigh);
+
+        String content = mockMvc.perform(post("/task")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(taskJson))
+                .andExpect(content().json(taskJson))
+                .andReturn().getResponse().getContentAsString();
+
+        Task result = mapper.readValue(content, Task.class);
+
+        Assert.assertEquals(completeTaskHigh.getName(), result.getName());
+        Assert.assertEquals(completeTaskHigh.getDescription(), result.getDescription());
     }
 
-}
+    @Test
+    @SneakyThrows
+    public void saveBlankTask() {
+        Task completeTaskLow = new TaskGenerator().createBlankTask();
+        String json = gsonJsonProvider.toJson(completeTaskLow);
 
+        Mockito.when(taskController.save(Mockito.any(Task.class))).thenReturn(null);
+
+        int responseLength = mockMvc.perform(post(("/task"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andReturn().getResponse().getContentLength();
+
+        Assert.assertEquals(responseLength, 0);
+    }
+
+    @SneakyThrows
+    @Test
+    public void saveEmptyTask() {
+        Task request = new TaskGenerator().createEmptyTask();
+        String json = gsonJsonProvider.toJson(request);
+
+        Mockito.when(taskController.save(Mockito.any(Task.class))).thenReturn(null);
+
+        MockHttpServletResponse resultActions = mockMvc.perform(post("/task")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andReturn().getResponse();
+
+        Assert.assertEquals(resultActions.getContentLength(), 0);
+    }
+
+    @SneakyThrows
+    @Test
+    public void updateCompleteTask() {
+        Task completeTaskLow = new TaskGenerator().createCompleteTaskLow();
+        String taskJson = gsonJsonProvider.toJson(completeTaskLow);
+
+        Mockito.when(taskController.update(Mockito.any(Task.class), Mockito.anyLong()))
+                .thenReturn(completeTaskLow);
+
+        String content = mockMvc.perform(put("/task/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(taskJson))
+                .andExpect(content().string(taskJson))
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse().getContentAsString();
+
+        Task result = mapper.readValue(content, Task.class);
+
+        Assert.assertEquals(completeTaskLow.getName(), result.getName());
+        Assert.assertEquals(completeTaskLow.getDescription(), result.getDescription());
+    }
+
+    @SneakyThrows
+    @Test
+    public void updateEmptyTask() {
+        Task updateEmptyTask = new TaskGenerator().createEmptyTask();
+        String response = gsonJsonProvider.toJson(updateEmptyTask);
+
+        Mockito.when(taskController.update(Mockito.any(Task.class), Mockito.anyLong())).thenReturn(null);
+
+        MockHttpServletResponse resultActions = mockMvc.perform(put("/task/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(response)).andReturn().getResponse();
+
+        Assert.assertEquals(resultActions.getContentLength(), 0);
+    }
+}

@@ -1,4 +1,4 @@
-package wlog_tracker.TaskModule;
+package wlog_tracker.taskmodule;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
