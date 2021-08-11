@@ -37,8 +37,15 @@ public class TaskController {
         Optional<Task> taskToGet = repository.findById(id);
         if (taskToGet.isPresent()){
             Task taskToUpdate = taskToGet.get();
-            return repository.save(taskToUpdate);
 
+            taskToUpdate.setName(task.getName());
+            taskToUpdate.setDescription(task.getDescription());
+            taskToUpdate.setPriority(task.getPriority());
+            taskToUpdate.setStartDate(task.getStartDate());
+            taskToUpdate.setEndDate(task.getEndDate());
+            taskToUpdate.setDueDate(task.getDueDate());
+
+            return repository.save(taskToUpdate);
         }
         return null;
     }

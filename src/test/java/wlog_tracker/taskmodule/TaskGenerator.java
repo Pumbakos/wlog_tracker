@@ -2,22 +2,19 @@ package wlog_tracker.taskmodule;
 
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
-
-
 @NoArgsConstructor
 public class TaskGenerator {
-    Task createTask(String name, Priority priority, String description,
-                    LocalDateTime dueDate, LocalDateTime startDate, LocalDateTime endDate){
+    StringToDate stringToDate = new StringToDate();
+
+    Task createTask(Task taskForExample){
         Task task = new Task();
-        task.setName(name);
-        task.setPriority(priority);
-        task.setDescription(description);
-        task.setDueDate(dueDate);
-        task.setStartDate(startDate);
-        task.setEndDate(endDate);
+        task.setId(taskForExample.getId());
+        task.setName(taskForExample.getName());
+        task.setPriority(taskForExample.getPriority());
+        task.setDescription(taskForExample.getDescription());
+        task.setDueDate(taskForExample.getDueDate());
+        task.setStartDate(taskForExample.getStartDate());
+        task.setEndDate(taskForExample.getEndDate());
         return task;
     }
 
@@ -26,9 +23,9 @@ public class TaskGenerator {
         task.setName("Zakupy");
         task.setPriority(Priority.LOW);
         task.setDescription("Kupienie ananasa");
-        task.setStartDate(LocalDateTime.parse("2021-08-09T12:00:00.00Z"));
-        task.setEndDate(LocalDateTime.parse("2021-08-11T12:00:00.00Z"));
-        task.setDueDate(LocalDateTime.parse("2021-08-10T12:00:00.00Z"));
+        task.setStartDate(stringToDate.StringToDate("2021-08-11 12:00:00"));
+        task.setEndDate(stringToDate.StringToDate("2021-08-13 12:00:00"));
+        task.setDueDate(stringToDate.StringToDate("2021-08-15 12:00:00"));
         return task;
     }
     Task createCompleteTaskHigh(){
@@ -36,9 +33,9 @@ public class TaskGenerator {
         task.setName("Zabieg");
         task.setPriority(Priority.HIGH);
         task.setDescription("Operacja zrenicy");
-        task.setStartDate(LocalDateTime.parse("2021-08-09T12:00:00.00Z"));
-        task.setEndDate(LocalDateTime.parse("2021-08-11T12:00:00.00Z"));
-        task.setDueDate(LocalDateTime.parse("2021-08-10T12:00:00.00Z"));
+        task.setStartDate(stringToDate.StringToDate("2021-08-11 12:00:00"));
+        task.setEndDate(stringToDate.StringToDate("2021-08-13 12:00:00"));
+        task.setDueDate(stringToDate.StringToDate("2021-08-16 12:00:00"));
         return task;
     }
 
@@ -52,4 +49,5 @@ public class TaskGenerator {
         task.setDescription("");
         return  task;
     }
+
 }
