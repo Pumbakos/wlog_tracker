@@ -1,18 +1,9 @@
 package wlog_tracker.usermodule;
 
+import wlog_tracker.usermodule.model.Title;
+import wlog_tracker.usermodule.model.User;
+
 class UserGenerator {
-    User createUserFromTemplate(User outsideUser){
-        User user = new User();
-        user.setId(outsideUser.getId());
-        user.setName(outsideUser.getName());
-        user.setSurname(outsideUser.getSurname());
-        user.setImageUrl(outsideUser.getImageUrl());
-        user.setPesel(outsideUser.getPesel());
-        user.setTitle(outsideUser.getTitle());
-
-        return user;
-    }
-
     User createUser(String name, String surname, String pesel, String imageUrl, Title title){
         User user = new User();
         user.setName(name);

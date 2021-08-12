@@ -1,4 +1,4 @@
-package wlog_tracker.usermodule;
+package wlog_tracker.usermodule.model;
 
 public enum Title {
     DEVELOPER("developer"),

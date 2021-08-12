@@ -1,4 +1,4 @@
-package wlog_tracker.usermodule;
+package wlog_tracker.usermodule.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
