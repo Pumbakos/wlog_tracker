@@ -1,4 +1,4 @@
-package wlog_tracker.TaskModule;
+package wlog_tracker.taskmodule.model;
 
 public enum Priority {
     LOW,

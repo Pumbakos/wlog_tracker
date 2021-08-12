@@ -1,14 +1,16 @@
-package wlog_tracker.TaskModule;
+package wlog_tracker.taskmodule.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter
-@Setter
+@Getter@Setter
+@ToString(exclude = "Id")
 @Entity
 public class Task {
     @Id
@@ -39,5 +41,4 @@ public class Task {
     private Date endDate;
 
     private Date trackedTime;
-
 }

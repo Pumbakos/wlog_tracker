@@ -1,7 +1,9 @@
-package wlog_tracker.TaskModule;
+package wlog_tracker.taskmodule;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import wlog_tracker.taskmodule.model.Task;
+
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository <Task, Long>{
