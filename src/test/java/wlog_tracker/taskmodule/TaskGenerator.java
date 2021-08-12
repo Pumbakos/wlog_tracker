@@ -1,10 +1,13 @@
 package wlog_tracker.taskmodule;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class TaskGenerator {
-    StringToDate stringToDate = new StringToDate();
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     Task createTask(){
         Task task = new Task();
@@ -18,28 +21,28 @@ public class TaskGenerator {
         return task;
     }
 
-    Task createCompleteTaskLow(){
+    Task createCompleteTaskLow() throws ParseException{
         Task task = new Task();
         task.setId(5L);
         task.setName("Zakupy");
         task.setPriority(Priority.LOW);
         task.setDescription("Kupienie ananasa");
-        task.setStartDate(stringToDate.StringToDate("2021-08-11 12:00:00"));
-        task.setEndDate(stringToDate.StringToDate("2021-08-13 12:00:00"));
-        task.setDueDate(stringToDate.StringToDate("2021-08-15 12:00:00"));
-        task.setTrackedTime(stringToDate.StringToDate("2021-08-13 12:00:00"));
+        task.setStartDate(dateFormat.parse("2021-08-11T12:00:00.000 UTC"));
+        task.setEndDate(dateFormat.parse("2021-08-13T12:00:00.000 UTC"));
+        task.setDueDate(dateFormat.parse("2021-08-13T12:00:00.000 UTC"));
+        task.setTrackedTime(dateFormat.parse("2021-08-13T12:00:00.000 UTC"));
         return task;
     }
-    Task createCompleteTaskHigh(){
+    Task createCompleteTaskHigh() throws ParseException{
         Task task = new Task();
         task.setId(2L);
         task.setName("Zabieg");
         task.setPriority(Priority.HIGH);
         task.setDescription("Operacja zrenicy");
-        task.setStartDate(stringToDate.StringToDate("2021-08-11 12:00:00"));
-        task.setEndDate(stringToDate.StringToDate("2021-08-13 12:00:00"));
-        task.setDueDate(stringToDate.StringToDate("2021-08-16 12:00:00"));
-        task.setTrackedTime(stringToDate.StringToDate("2021-08-13 12:00:00"));
+        task.setStartDate(dateFormat.parse("2021-08-11T12:00:00.000 UTC"));
+        task.setEndDate(dateFormat.parse("2021-08-13T12:00:00.000 UTC"));
+        task.setDueDate(dateFormat.parse("2021-08-16T12:00:00.000 UTC"));
+        task.setTrackedTime(dateFormat.parse("2021-08-13T12:00:00.000 UTC"));
         return task;
     }
 

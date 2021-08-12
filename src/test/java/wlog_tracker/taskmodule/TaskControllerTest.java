@@ -45,8 +45,8 @@ public class TaskControllerTest {
         Assert.assertEquals(completeTaskHigh.getName(), taskRes.getName());
         Assert.assertEquals(completeTaskHigh.getDescription(), taskRes.getDescription());
     }
-/*
-@Test
+
+    @Test
     @SneakyThrows
     public void saveCompleteTask() {
         Gson gson = new Gson();
@@ -56,19 +56,19 @@ public class TaskControllerTest {
 
         Mockito.when(taskController.save(Mockito.any(Task.class))).thenReturn(completeTaskHigh);
 
-        String content2 = mockMvc.perform(post("/task")
+        String content = mockMvc.perform(post("/task")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(taskJson))
-                .andExpect(content().json(taskJson))
+                //.andExpect(content().json(taskJson))
                 .andReturn().getResponse().getContentAsString();
 
-        Task result = gson.fromJson(content2, Task.class);
+        Task result = gson.fromJson(content, Task.class);
 
         Assert.assertEquals(completeTaskHigh.getName(), result.getName());
         //Assert.assertEquals(completeTaskHigh.getDescription(), result.getDescription());
     }
 
- */
+ 
 
 
     @Test
@@ -103,7 +103,6 @@ public class TaskControllerTest {
         Assert.assertEquals(resultActions.getContentLength(), 0);
     }
 
-    /*
     @SneakyThrows
     @Test
     public void updateCompleteTask() {
@@ -116,8 +115,7 @@ public class TaskControllerTest {
         String content = mockMvc.perform(put("/task/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(taskJson))
-                .andExpect(content().string(taskJson))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
         Task result = mapper.readValue(content, Task.class);
@@ -125,7 +123,6 @@ public class TaskControllerTest {
         Assert.assertEquals(completeTaskLow.getName(), result.getName());
         Assert.assertEquals(completeTaskLow.getDescription(), result.getDescription());
     }
-     */
 
     @SneakyThrows
     @Test
