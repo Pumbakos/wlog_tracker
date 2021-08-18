@@ -3,7 +3,7 @@ package wlog_tracker.usermodule;
 import wlog_tracker.usermodule.model.Title;
 import wlog_tracker.usermodule.model.User;
 
-class UserGenerator {
+public class UserGenerator {
     User createUser(String name, String surname, String pesel, String imageUrl, Title title){
         User user = new User();
         user.setName(name);
@@ -25,7 +25,7 @@ class UserGenerator {
         return user;
     }
 
-    User createCompleteUser(){
+    public static User createCompleteUser(){
         User user = new User();
         user.setName("Denis");
         user.setSurname("Smith");
@@ -36,7 +36,7 @@ class UserGenerator {
         return user;
     }
 
-    User createCompleteUserWithoutImageUrl(){
+    public static User createCompleteUserWithoutImageUrl(){
         User user = new User();
         user.setName("Denis");
         user.setSurname("Smith");
