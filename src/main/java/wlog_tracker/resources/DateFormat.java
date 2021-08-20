@@ -1,5 +1,9 @@
 package wlog_tracker.resources;
 
 public class DateFormat {
-    public static final String DATE_PATTERN  = "MMM dd, yyyy, HH:mm:ss a z";
+    //TODO: change date format in tests
+    /**
+     * dd MMM yyyy HH:mm:ss
+     */
+    public static final String DATE_PATTERN  = "dd MMM yyyy HH:mm:ss";
 }
