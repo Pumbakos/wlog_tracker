@@ -9,6 +9,7 @@ import wlog_tracker.taskmodule.services.TaskService;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:8081/"})
 @RestController
 @RequestMapping("/task")
 public class TaskController {
