@@ -39,6 +39,10 @@ public class TaskService {
 
             for (Field field : fields) {
                 try {
+                    if (field.getName().equals("id")){
+                        continue;
+                    }
+
                     Field taskToUpdateField = taskToUpdate.getClass().getDeclaredField(field.getName());
                     Field taskField = task.getClass().getDeclaredField(field.getName());
 

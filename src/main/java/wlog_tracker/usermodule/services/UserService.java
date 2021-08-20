@@ -36,7 +36,7 @@ public class UserService {
             userToUpdate.setName(user.getName());
             userToUpdate.setSurname(user.getSurname());
             userToUpdate.setPesel(user.getPesel());
-            userToUpdate.setImageUrl(user.getImageUrl());
+            userToUpdate.setImage(user.getImage());
             userToUpdate.setTitle(user.getTitle());
 
             return repository.save(userToUpdate);

@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "spring.tracker-db-datasource.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tracker-db-datasource.driver-class-name'"
+  },
+  {
+    "name": "spring.tracker-db-datasource.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tracker-db-datasource.username'"
+  },
+  {
+    "name": "spring.tracker-db-datasource.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tracker-db-datasource.password'"
+  },
+  {
+    "name": "spring.tracker-db-datasource.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tracker-db-datasource.url'"
+  }
+]}

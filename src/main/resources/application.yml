@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: default
+  tracker-db-datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: ${TRACKER_SPRING_DB_USERNAME:trackerdb_login}
+    password: ${TRACKER_SPRING_DB_PASSWORD:qwe@123!}
+    url: ${TRACKER_SPRING_DB_URL:jdbc:sqlserver://wlog-tracker-server.database.windows.net;databaseName=trackerDb;encrypt=true;selectMethod=cursor;trustServerCertificate=true}

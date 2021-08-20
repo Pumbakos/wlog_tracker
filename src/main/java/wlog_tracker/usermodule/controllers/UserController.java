@@ -2,13 +2,11 @@ package wlog_tracker.usermodule.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import wlog_tracker.usermodule.UserRepository;
 import wlog_tracker.usermodule.model.User;
 import wlog_tracker.usermodule.services.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = {"http://localhost:8081/"})
 @RestController
@@ -43,6 +41,6 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public User delete(@PathVariable(name = "id") Long id) {
-      return userService.delete(id);
+        return userService.delete(id);
     }
 }
